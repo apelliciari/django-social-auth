@@ -93,7 +93,8 @@ class SocialAuthBackend(object):
             return None
 
         response = kwargs.get('response')
-        pipeline = PIPELINE
+        pipeline = kwargs.get('pipeline', PIPELINE)  # possibility to override pipeline at runtime
+        kwargs.pop("pipeline", None)  # remove the pipeline if present, because otherwise will conflict in the pipeline method
         kwargs = kwargs.copy()
         kwargs['backend'] = self
 
